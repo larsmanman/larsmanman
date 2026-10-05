@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>K3 Invalschema 2027</title>
+<style>
+  :root {
+    --bg: #fff8fb; --card: #ffffff; --ink: #2a1630; --muted: #6f5a75; --line: #ecd9e6;
+    --accent: #e0287d; --accent2: #7b3fe4;
+    --ok: #1f9d55; --ok-bg: #dcf5e6; --mid: #b7791f; --mid-bg: #fdf0d5; --no: #c53030; --no-bg: #fde2e2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #170d1b; --card: #23152a; --ink: #f5e9f7; --muted: #bfa8c6; --line: #3c2846;
+      --accent: #ff5aa5; --accent2: #a77bff;
+      --ok: #5fd796; --ok-bg: #173826; --mid: #f3c35c; --mid-bg: #3d2f12; --no: #ff7b7b; --no-bg: #431c1f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #170d1b; --card: #23152a; --ink: #f5e9f7; --muted: #bfa8c6; --line: #3c2846;
+    --accent: #ff5aa5; --accent2: #a77bff;
+    --ok: #5fd796; --ok-bg: #173826; --mid: #f3c35c; --mid-bg: #3d2f12; --no: #ff7b7b; --no-bg: #431c1f;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1120px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: clamp(26px, 5vw, 40px); margin: 0 0 4px; letter-spacing: -0.02em; }
+  h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  h2 { font-size: 21px; margin: 40px 0 12px; }
+  h3 { margin: 0; font-size: 17px; }
+  p.lead { color: var(--muted); margin: 0 0 16px; max-width: 70ch; }
+  .note { border: 1px dashed var(--accent); background: var(--card); border-radius: 10px; padding: 10px 14px; font-size: 14px; color: var(--muted); }
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+  .card .era { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); font-weight: 700; }
+  .card dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; margin: 10px 0 0; font-size: 13.5px; }
+  .card dt { color: var(--muted); }
+  .card dd { margin: 0; }
+  .score { display: inline-block; margin-top: 10px; font-weight: 700; font-size: 13px; padding: 2px 8px; border-radius: 99px; background: var(--ok-bg); color: var(--ok); }
+  .score.mid { background: var(--mid-bg); color: var(--mid); }
+  .score.no { background: var(--no-bg); color: var(--no); }
+  .tablewrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+  table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 13px; }
+  th, td { padding: 7px 6px; text-align: center; border-bottom: 1px solid var(--line); }
+  th:first-child, td:first-child { text-align: left; padding-left: 12px; white-space: nowrap; position: sticky; left: 0; background: var(--card); }
+  thead th { color: var(--muted); font-weight: 600; }
+  .c { display: inline-block; min-width: 26px; padding: 2px 4px; border-radius: 6px; font-weight: 700; cursor: help; }
+  .c.A { background: var(--ok-bg); color: var(--ok); }
+  .c.B { background: var(--mid-bg); color: var(--mid); }
+  .c.N { background: var(--no-bg); color: var(--no); }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 10px 0; font-size: 13px; color: var(--muted); }
+  .picker { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }
+  .picker label { background: var(--card); border: 1px solid var(--line); border-radius: 99px; padding: 6px 12px; cursor: pointer; user-select: none; font-size: 14px; }
+  .picker input { accent-color: var(--accent); margin-right: 6px; }
+  .picker label.on { border-color: var(--accent); }
+  #result { min-height: 60px; }
+  .months { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 6px; margin-top: 8px; }
+  .m { border-radius: 8px; padding: 8px 4px; text-align: center; font-size: 13px; font-weight: 600; border: 1px solid var(--line); }
+  .m.A { background: var(--ok-bg); color: var(--ok); }
+  .m.B { background: var(--mid-bg); color: var(--mid); }
+  .m.N { background: var(--no-bg); color: var(--no); opacity: .75; }
+  .timeline { list-style: none; padding: 0; margin: 0; border-left: 3px solid var(--accent); }
+  .timeline li { position: relative; padding: 0 0 18px 18px; }
+  .timeline li::before { content: ""; position: absolute; left: -8px; top: 5px; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg); }
+  .timeline b { display: block; }
+  .timeline span { color: var(--muted); font-size: 14px; }
+  .week td, .week th { min-width: 90px; }
+  .tag { font-size: 12px; padding: 1px 7px; border-radius: 99px; background: var(--line); color: var(--ink); margin: 1px; display: inline-block; }
+  ul.tight { margin: 6px 0 0; padding-left: 18px; font-size: 14px; }
+  footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+  <h1><span>K3</span> Invalschema 2027</h1>
+  <p class="lead">Planningsoverzicht van alle (ex-)K3-leden: wie kan wanneer terug invallen voor een nieuwe K3-samenstelling. Met per lid de beschikbaarheid per maand, voorkeursdagen, aandachtspunten, voorgestelde formaties en een volledige tijdlijn van audities tot tournee.</p>
+  <p class="note">⚠️ <strong>Fictief fan-scenario.</strong> De loopbaangegevens (periodes in K3) zijn publiek bekend; alle beschikbaarheden, voorkeuren en afspraken hieronder zijn <em>verzonnen planningsdata</em> en zeggen niets over de echte agenda's of plannen van de betrokkenen of van Studio 100.</p>
+
+  <h2>1. De leden in één oogopslag</h2>
+  <div class="grid" id="members"></div>
+
+  <h2>2. Beschikbaarheid per maand (2027)</h2>
+  <div class="legend">
+    <span><span class="c A">✓</span> beschikbaar (volledig inzetbaar)</span>
+    <span><span class="c B">~</span> beperkt (enkel weekends / losse shows)</span>
+    <span><span class="c N">✕</span> niet beschikbaar</span>
+    <span>Beweeg over een vakje voor de reden.</span>
+  </div>
+  <div class="tablewrap"><table id="avail"></table></div>
+
+  <h2>3. Stel zelf een trio samen</h2>
+  <p class="lead">Kies precies drie leden. Je ziet meteen in welke maanden het trio samen kan optreden.</p>
+  <div class="picker" id="picker"></div>
+  <div class="card" id="result"></div>
+
+  <h2>4. Voorgestelde formaties</h2>
+  <div class="grid" id="formations"></div>
+
+  <h2>5. Weekrooster tijdens repetitieperiode (mei 2027)</h2>
+  <div class="tablewrap"><table class="week" id="week"></table></div>
+
+  <h2>6. Tijdlijn naar de nieuwe samenstelling</h2>
+  <ul class="timeline">
+    <li><b>Januari 2027 · Verkennende gesprekken</b><span>Individuele gesprekken met alle acht (ex-)leden: interesse, agenda, vocale conditie, gewenste rol (vast lid, gast of reserve).</span></li>
+    <li><b>Februari 2027 · Vocale check & dansworkshop</b><span>Twee dagen in de studio. Toonhoogtes van de klassiekers worden per formatie bekeken (originele vs. 2015-arrangementen).</span></li>
+    <li><b>Maart 2027 · Keuze formatie + reserves</b><span>Definitieve trio + twee vaste invallers die de volledige choreografie kennen.</span></li>
+    <li><b>April – mei 2027 · Repetities</b><span>3 à 4 dagen per week (zie weekrooster). Nieuwe single in de studio eind april.</span></li>
+    <li><b>Juni 2027 · Aankondiging & eerste single</b><span>Persmoment, clipopname en eerste tv-optreden.</span></li>
+    <li><b>Juli – augustus 2027 · Zomerfestivals</b><span>Weekendshows; hier wordt het meest met invallers gewerkt (zie beschikbaarheid ~).</span></li>
+    <li><b>Oktober – december 2027 · Zaaltournee</b><span>Vlaanderen & Nederland, met kerstshows in december. Elke show heeft één reserve stand-by.</span></li>
+  </ul>
+
+  <h2>7. Invalregels</h2>
+  <div class="grid">
+    <div class="card"><h3>🔁 Wissel</h3><ul class="tight"><li>Maximaal één lid per show vervangen.</li><li>Invaller minstens 48 u vooraf bevestigd.</li><li>Elke invaller kent alle 20 nummers van de setlist.</li></ul></div>
+    <div class="card"><h3>🎤 Repertoire</h3><ul class="tight"><li>Klassiekers: <em>Alle kleuren</em>, <em>Heyah Mama</em>, <em>Oya lele</em>, <em>Kusjesdans</em>, <em>10.000 luchtballonnen</em>.</li><li>Eén medley per tijdperk (1998–2009, 2009–2015, 2015–nu).</li></ul></div>
+    <div class="card"><h3>📞 Contactvolgorde</h3><ul class="tight"><li>1e reserve → 2e reserve → oud-lid met ✓ in die maand.</li><li>Bij ~ enkel vragen voor zaterdag/zondag.</li></ul></div>
+  </div>
+
+  <footer>Fictief planningsschema, opgemaakt op 5 oktober 2026. Gegevens over de echte loopbanen kunnen afwijken; controleer actuele info bij officiële bronnen.</footer>
+</main>
+
+<script>
+const MONTHS = ["jan","feb","mrt","apr","mei","jun","jul","aug","sep","okt","nov","dec"];
+
+// Availability string: 12 chars, A = beschikbaar, B = beperkt, N = niet. Reasons per month (optional).
+const MEMBERS = [
+  { id:"karen", name:"Karen Damen", era:"Origineel · 1998–2015", born:1974,
+    role:"Lead vocals, presentatie", days:"di, wo, za", travel:"Max. 2 u rijden per dag",
+    focus:"Wil vooral reüniemomenten en tv-optredens doen.",
+    av:"BAAAABBBAAAB", why:{0:"Eigen projecten",5:"Theaterreeks",6:"Vakantie (weekends ok)",7:"Vakantie (weekends ok)",11:"Kerstconcerten solo"} },
+  { id:"kristel", name:"Kristel Verbeke", era:"Origineel · 1998–2015", born:1975,
+    role:"Vocals, harmonieën", days:"ma, wo, vr, za", travel:"Flexibel",
+    focus:"Combineert met andere engagementen; liefst niet meer dan 2 shows per week.",
+    av:"AAABAAAANBAA", why:{3:"Andere engagementen",8:"Vast engagement, niet beschikbaar",9:"Halve maand vrij"} },
+  { id:"kathleen", name:"Kathleen Aerts", era:"Origineel · 1998–2009", born:1978,
+    role:"Vocals, dans", days:"do, vr, za, zo", travel:"Flexibel",
+    focus:"Langst weg uit de groep: extra choreografierepetities nodig.",
+    av:"NAAAAAABBAAA", why:{0:"Buitenlandse reis",7:"Enkel weekends",8:"Enkel weekends"} },
+  { id:"josje", name:"Josje Huisman", era:"2e generatie · 2009–2015", born:1986,
+    role:"Vocals, dans", days:"ma, di, za", travel:"Woont in NL: idealiter shows in NL/Antwerpen",
+    focus:"Ideaal als vaste reserve voor de Nederlandse data.",
+    av:"AABBAAANNAAB", why:{2:"Musicalproductie (avonden)",3:"Musicalproductie (avonden)",7:"Gezinsvakantie",8:"Eigen tournee",11:"Feestdagen thuis"} },
+  { id:"hanne", name:"Hanne Verbruggen", era:"3e generatie · 2015–", born:1994,
+    role:"Vocals, dans (blond)", days:"alle dagen", travel:"Flexibel",
+    focus:"Kent de huidige show volledig: ankerlid voor elke formatie.",
+    av:"AAAAAAAAAAAA", why:{} },
+  { id:"marthe", name:"Marthe De Pillecyn", era:"3e generatie · 2015–", born:1996,
+    role:"Vocals, dans (rood)", days:"alle dagen", travel:"Flexibel",
+    focus:"Kent de huidige show volledig: ankerlid voor elke formatie.",
+    av:"AAAAAABAAAAA", why:{6:"Korte zomerpauze (2 weken)"} },
+  { id:"klaasje", name:"Klaasje Meijer", era:"3e generatie · 2015–2021", born:1995,
+    role:"Vocals, dans (bruin)", days:"wo, do, za", travel:"Woont in NL",
+    focus:"Graag teruggekeerd voor een reüniereeks, niet voor een volledige tournee.",
+    av:"NNBAAAAABBNN", why:{0:"Eigen muziekproject",1:"Eigen muziekproject",2:"Enkel weekends",8:"Enkel weekends",9:"Enkel weekends",10:"Eigen tournee",11:"Eigen tournee"} },
+  { id:"julia", name:"Julia Boschman", era:"4e generatie · 2021–", born:2001,
+    role:"Vocals, dans (bruin)", days:"alle dagen", travel:"Flexibel",
+    focus:"Huidig lid, kent alle nieuwe choreografieën.",
+    av:"AAAAAAAAAABA", why:{10:"Studio-opnames (beperkt)"} },
+];
+
+const FORMATIONS = [
+  { name:"🌈 De Originelen", ids:["karen","kristel","kathleen"], note:"Pure reünie van het eerste uur. Perfect voor een 30-jarig jubileum (2028) met try-out in 2027." , reserves:"josje, hanne" },
+  { name:"🎀 Klassiek 2015", ids:["hanne","marthe","klaasje"], note:"Het trio uit ‘K3 zoekt K3’. Sterk in de zomer en het voorjaar.", reserves:"julia, josje" },
+  { name:"⭐ Huidige kern", ids:["hanne","marthe","julia"], note:"Hoogste beschikbaarheid: draagt de zaaltournee.", reserves:"klaasje, josje" },
+  { name:"🔀 Generatiemix", ids:["kristel","josje","julia"], note:"Eén lid per tijdperk: ideaal voor de jubileummedley.", reserves:"karen, marthe" },
+];
+
+const byId = Object.fromEntries(MEMBERS.map(m => [m.id, m]));
+const yearsIn = s => { const [a,b] = s.split("·")[1].trim().split("–"); return (b ? +b : 2026) - +a; };
+const count = (s, ch) => [...s].filter(c => c === ch).length;
+const combine = ids => MONTHS.map((_, i) => {
+  const cs = ids.map(id => byId[id].av[i]);
+  return cs.includes("N") ? "N" : cs.includes("B") ? "B" : "A";
+}).join("");
+const scoreClass = n => n >= 8 ? "" : n >= 4 ? "mid" : "no";
+
+// 1. member cards
+document.getElementById("members").innerHTML = MEMBERS.map(m => {
+  const a = count(m.av,"A"), b = count(m.av,"B");
+  return `<div class="card"><div class="era">${m.era}</div><h3>${m.name}</h3>
+    <dl><dt>Geboren</dt><dd>${m.born} (± ${2027-m.born} in 2027)</dd>
+    <dt>Jaren in K3</dt><dd>${yearsIn(m.era)}${m.era.endsWith("–")?" (nog actief)":""}</dd>
+    <dt>Rol</dt><dd>${m.role}</dd><dt>Voorkeur</dt><dd>${m.days}</dd>
+    <dt>Reizen</dt><dd>${m.travel}</dd><dt>Notitie</dt><dd>${m.focus}</dd></dl>
+    <span class="score ${scoreClass(a)}">${a} mnd volledig · ${b} mnd beperkt</span></div>`;
+}).join("");
+
+// 2. availability table
+const sym = {A:"✓",B:"~",N:"✕"}, txt = {A:"Beschikbaar",B:"Beperkt",N:"Niet beschikbaar"};
+document.getElementById("avail").innerHTML =
+  `<thead><tr><th>Lid</th>${MONTHS.map(m=>`<th>${m}</th>`).join("")}<th>Totaal ✓</th></tr></thead><tbody>` +
+  MEMBERS.map(m => `<tr><td>${m.name}</td>${[...m.av].map((c,i)=>
+    `<td><span class="c ${c}" title="${MONTHS[i]}: ${txt[c]}${m.why[i]?" – "+m.why[i]:""}">${sym[c]}</span></td>`).join("")}
+    <td><b>${count(m.av,"A")}</b></td></tr>`).join("") +
+  `<tr><td><b>Aantal ✓ per maand</b></td>${MONTHS.map((_,i)=>`<td><b>${MEMBERS.filter(m=>m.av[i]==="A").length}</b></td>`).join("")}<td></td></tr></tbody>`;
+
+// 3. picker
+const picker = document.getElementById("picker");
+let chosen = ["hanne","marthe","julia"];
+function renderPicker() {
+  picker.innerHTML = MEMBERS.map(m => `<label class="${chosen.includes(m.id)?"on":""}"><input type="checkbox" value="${m.id}" ${chosen.includes(m.id)?"checked":""}>${m.name}</label>`).join("");
+}
+function renderResult() {
+  const el = document.getElementById("result");
+  if (chosen.length !== 3) { el.innerHTML = `<p>Kies precies 3 leden (nu ${chosen.length}).</p>`; return; }
+  const comb = combine(chosen);
+  const a = count(comb,"A"), b = count(comb,"B");
+  const best = MONTHS.filter((_,i)=>comb[i]==="A");
+  el.innerHTML = `<h3>${chosen.map(id=>byId[id].name).join(" + ")}</h3>
+    <span class="score ${scoreClass(a)}">${a} maanden samen volledig · ${b} beperkt · ${12-a-b} onmogelijk</span>
+    <div class="months">${MONTHS.map((m,i)=>`<div class="m ${comb[i]}">${m}<br>${sym[comb[i]]}</div>`).join("")}</div>
+    <p style="margin:10px 0 0;color:var(--muted);font-size:14px">${best.length ? "Beste maanden voor repetities en grote shows: <b>"+best.join(", ")+"</b>." : "Geen enkele maand waarin alle drie volledig kunnen: werk met invallers."}</p>`;
+}
+picker.addEventListener("change", e => {
+  const id = e.target.value;
+  chosen = e.target.checked ? [...chosen, id] : chosen.filter(x => x !== id);
+  renderPicker(); renderResult();
+});
+renderPicker(); renderResult();
+
+// 4. formations
+document.getElementById("formations").innerHTML = FORMATIONS.map(f => {
+  const comb = combine(f.ids), a = count(comb,"A"), b = count(comb,"B");
+  return `<div class="card"><h3>${f.name}</h3>
+    <p style="margin:6px 0">${f.ids.map(id=>`<span class="tag">${byId[id].name}</span>`).join(" ")}</p>
+    <p style="margin:6px 0;font-size:14px">${f.note}</p>
+    <p style="margin:6px 0;font-size:13px;color:var(--muted)">Reserves: ${f.reserves.split(", ").map(id=>byId[id].name).join(", ")}</p>
+    <div class="months" style="grid-template-columns:repeat(6,1fr)">${MONTHS.map((m,i)=>`<div class="m ${comb[i]}" style="padding:4px 2px;font-size:12px">${m}</div>`).join("")}</div>
+    <span class="score ${scoreClass(a)}">${a}/12 volledig · ${b} beperkt</span></div>`;
+}).join("");
+
+// 5. week schedule (May = index 4)
+const DAYS = ["ma","di","wo","do","vr","za","zo"];
+const dayMap = { "alle dagen": DAYS };
+const SLOTS = { ma:"Zang 10–13u", di:"Dans 10–16u", wo:"Zang + dans 13–18u", do:"Doorloop 10–17u", vr:"Clip/foto 10–15u", za:"Try-out show 15u", zo:"Rust / reserve" };
+document.getElementById("week").innerHTML =
+  `<thead><tr><th>Lid</th>${DAYS.map(d=>`<th>${d}<br><span style="font-weight:400;font-size:11px">${SLOTS[d]}</span></th>`).join("")}</tr></thead><tbody>` +
+  MEMBERS.map(m => {
+    const pref = dayMap[m.days] || m.days.split(", ");
+    const may = m.av[4];
+    return `<tr><td>${m.name}</td>${DAYS.map(d => {
+      const c = may === "N" ? "N" : pref.includes(d) ? (may === "B" && !["za","zo"].includes(d) ? "B" : "A") : "N";
+      return `<td><span class="c ${c}" title="${d}: ${txt[c]}">${sym[c]}</span></td>`;
+    }).join("")}</tr>`;
+  }).join("") + "</tbody>";
+</script>
+</body>
+</html>
