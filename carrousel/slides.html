@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8">
+<style>
+:root{--bg:#0e0e10;--fg:#f4f1ea;--mut:#8d8a84;--acc:#ff6a2b;--line:#2a2a2e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;font-family:"Inter Display","Inter",sans-serif;color:var(--fg)}
+.slide{width:1080px;height:1350px;background:var(--bg);position:relative;overflow:hidden;padding:120px 96px;display:flex;flex-direction:column;justify-content:center;margin-bottom:20px}
+.slide::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:108px 108px;opacity:.35;pointer-events:none}
+.top,.bot{position:absolute;left:96px;right:96px;display:flex;justify-content:space-between;font-size:26px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:500}
+.top{top:72px}.bot{bottom:72px}
+.dots{display:flex;gap:10px;align-items:center}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--acc);width:34px;border-radius:5px}
+h1{font-size:104px;line-height:1.02;font-weight:700;letter-spacing:-.035em;position:relative}
+h2{font-size:72px;line-height:1.06;font-weight:700;letter-spacing:-.03em;position:relative}
+p{font-size:44px;line-height:1.3;font-weight:400;color:#cfcbc3;position:relative;letter-spacing:-.01em}
+.acc{color:var(--acc)}
+.mut{color:var(--mut)}
+.gap{height:48px}.gap-s{height:28px}
+.tag{display:inline-block;font-size:26px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:40px;position:relative}
+.strike{text-decoration:line-through;text-decoration-color:var(--acc);text-decoration-thickness:5px;color:var(--mut)}
+.chips{display:flex;flex-wrap:wrap;gap:18px;position:relative}
+.chip{font-size:38px;padding:16px 30px;border:2px solid var(--line);border-radius:999px;color:var(--mut);background:#141417}
+ul{list-style:none;position:relative}
+li{font-size:68px;font-weight:700;letter-spacing:-.03em;padding:22px 0;border-top:2px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+li:last-child{border-bottom:2px solid var(--line)}
+li span{font-size:28px;color:var(--mut);font-weight:500;letter-spacing:.05em}
+li.hl{color:var(--acc)}
+.curve{position:relative;margin:10px 0 50px}
+.big{font-size:150px;line-height:.95;font-weight:800;letter-spacing:-.045em;position:relative}
+.cta{position:relative;margin-top:70px;padding:44px 48px;border:2px solid var(--acc);border-radius:28px;background:rgba(255,106,43,.06)}
+.cta p{color:var(--fg);font-size:50px;font-weight:600}
+.cta small{display:block;font-size:28px;color:var(--mut);margin-top:16px;letter-spacing:.04em}
+</style></head><body>
+
+<!-- 1 -->
+<section class="slide">
+  <div class="top"><span>Motion &amp; AI</span><span>01 / 07</span></div>
+  <svg class="curve" width="420" height="200" viewBox="0 0 420 200"><path d="M10 190 C 210 190, 210 10, 410 10" fill="none" stroke="#ff6a2b" stroke-width="8" stroke-linecap="round"/><circle cx="10" cy="190" r="12" fill="#ff6a2b"/><circle cx="410" cy="10" r="12" fill="#ff6a2b"/></svg>
+  <h1>Over 5 jaar is <span class="strike">After&nbsp;Effects</span> misschien irrelevant.</h1>
+  <div class="gap"></div>
+  <h1 class="acc">Jouw talent niet.</h1>
+  <div class="bot"><span>Swipe →</span><div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="top"><span>Motion &amp; AI</span><span>02 / 07</span></div>
+  <p>Iedereen vraagt zich af of AI zijn job gaat overnemen.</p>
+  <div class="gap"></div>
+  <h2>Maar kijk eens wat AI <span class="acc">echt</span> vervangt:</h2>
+  <div class="gap"></div>
+  <div class="chips"><span class="chip">knoppen</span><span class="chip">menu's</span><span class="chip">plug-ins</span><span class="chip">workflows</span></div>
+  <div class="gap"></div><div class="gap"></div>
+  <h2>Dat is software,<br><span class="acc">geen talent.</span></h2>
+  <div class="bot"><span>Swipe →</span><div class="dots"><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="top"><span>Motion &amp; AI</span><span>03 / 07</span></div>
+  <span class="tag">1981 — Disney</span>
+  <p>Twee Disney-animators beschreven de <b style="color:var(--fg)">12 principes van animatie</b>. Eén daarvan:</p>
+  <div class="gap-s"></div>
+  <h2>slow in, slow out.</h2>
+  <svg class="curve" width="888" height="260" viewBox="0 0 888 260" style="margin:40px 0">
+    <line x1="0" y1="250" x2="888" y2="250" stroke="#2a2a2e" stroke-width="2"/>
+    <line x1="0" y1="10" x2="888" y2="10" stroke="#2a2a2e" stroke-width="2"/>
+    <line x1="20" y1="240" x2="300" y2="240" stroke="#8d8a84" stroke-width="3" stroke-dasharray="6 8"/>
+    <line x1="868" y1="20" x2="588" y2="20" stroke="#8d8a84" stroke-width="3" stroke-dasharray="6 8"/>
+    <path d="M20 240 C 300 240, 588 20, 868 20" fill="none" stroke="#ff6a2b" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="20" cy="240" r="12" fill="#ff6a2b"/><circle cx="868" cy="20" r="12" fill="#ff6a2b"/>
+    <rect x="290" y="230" width="20" height="20" fill="#f4f1ea"/><rect x="578" y="10" width="20" height="20" fill="#f4f1ea"/>
+  </svg>
+  <p>Vandaag heet dat een <span class="acc">easing curve</span>.</p>
+  <div class="gap-s"></div>
+  <p class="mut" style="font-size:36px">Potlood → cel → Flash → After Effects → AI</p>
+  <div class="gap-s"></div>
+  <p style="color:var(--fg);font-weight:600">Het principe overleefde ze allemaal.<br>Het gaat ook AI overleven.</p>
+  <div class="bot"><span>Swipe →</span><div class="dots"><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="top"><span>Motion &amp; AI</span><span>04 / 07</span></div>
+  <p>Tools veranderen om de paar jaar, en AI versnelt dat nog.</p>
+  <div class="gap"></div>
+  <span class="tag">Wat blijft</span>
+  <ul>
+    <li>→ compositie<span>01</span></li>
+    <li>→ licht<span>02</span></li>
+    <li>→ timing<span>03</span></li>
+    <li>→ ritme<span>04</span></li>
+    <li class="hl">→ smaak<span>05</span></li>
+  </ul>
+  <div class="bot"><span>Swipe →</span><div class="dots"><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div></div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="top"><span>Motion &amp; AI</span><span>05 / 07</span></div>
+  <h2><span class="mut">Software bepaalt</span> hoe <span class="mut">je iets maakt.</span></h2>
+  <div class="gap"></div>
+  <h2>Smaak bepaalt <span class="acc">wat</span> je maakt en <span class="acc">waarom</span>.</h2>
+  <div class="gap"></div><div class="gap"></div>
+  <p>AI kan het <i>hoe</i> steeds beter overnemen.<br>Maar iemand moet nog altijd zeggen:</p>
+  <div class="gap"></div>
+  <h2>“Dit is goed. <span class="mut">Dat niet.</span>”</h2>
+  <div class="bot"><span>Swipe →</span><div class="dots"><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i></div></div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="top"><span>Motion &amp; AI</span><span>06 / 07</span></div>
+  <h2>Smaak leer je niet uit een tutorial.</h2>
+  <div class="gap-s"></div>
+  <h2 class="acc">Je bouwt het op door te maken.</h2>
+  <div class="gap"></div><div class="gap"></div>
+  <p>Elke visie.<br>Elke mislukte versie.<br>Elke <span style="color:var(--fg)">“nee, nog niet helemaal”</span>.</p>
+  <div class="gap"></div><div class="gap"></div>
+  <p style="color:var(--fg);font-weight:600">Daar ontstaan de inzichten<br>die AI niet kan kopiëren.</p>
+  <div class="bot"><span>Swipe →</span><div class="dots"><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i></div></div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="top"><span>Motion &amp; AI</span><span>07 / 07</span></div>
+  <p>Wees dus niet bang dat je software verdwijnt.</p>
+  <div class="gap"></div>
+  <div class="big">Wees bang dat je <span class="acc">stopt met maken.</span></div>
+  <div class="cta">
+    <p>Welke tool denk jij dat gaat verdwijnen?</p>
+    <small>↓ Laat het weten in de comments</small>
+  </div>
+  <div class="bot"><span>Bewaar &amp; deel</span><div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i></div></div>
+</section>
+</body></html>
