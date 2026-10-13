@@ -1,137 +1,216 @@
 <!doctype html>
 <html lang="nl"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Playfair+Display:ital,wght@1,400;1,500;1,600&family=Inter:wght@400;500;600&display=block" rel="stylesheet">
 <style>
-:root{--bg:#0e0e10;--fg:#f4f1ea;--mut:#8d8a84;--acc:#ff6a2b;--line:#2a2a2e}
+:root{--red:#e4532c;--mustard:#f1bd3e;--paper:#ece6d8;--ink:#161514;--sky1:#6f98c4;--sky2:#c9dceb;--folder:#2f8ff0}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;font-family:"Inter Display","Inter",sans-serif;color:var(--fg)}
-.slide{width:1080px;height:1350px;background:var(--bg);position:relative;overflow:hidden;padding:120px 96px;display:flex;flex-direction:column;justify-content:center;margin-bottom:20px}
-.slide::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:108px 108px;opacity:.35;pointer-events:none}
-.top,.bot{position:absolute;left:96px;right:96px;display:flex;justify-content:space-between;font-size:26px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:500}
-.top{top:72px}.bot{bottom:72px}
-.dots{display:flex;gap:10px;align-items:center}
-.dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
-.dots i.on{background:var(--acc);width:34px;border-radius:5px}
-h1{font-size:104px;line-height:1.02;font-weight:700;letter-spacing:-.035em;position:relative}
-h2{font-size:72px;line-height:1.06;font-weight:700;letter-spacing:-.03em;position:relative}
-p{font-size:44px;line-height:1.3;font-weight:400;color:#cfcbc3;position:relative;letter-spacing:-.01em}
-.acc{color:var(--acc)}
-.mut{color:var(--mut)}
-.gap{height:48px}.gap-s{height:28px}
-.tag{display:inline-block;font-size:26px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin-bottom:40px;position:relative}
-.strike{text-decoration:line-through;text-decoration-color:var(--acc);text-decoration-thickness:5px;color:var(--mut)}
-.chips{display:flex;flex-wrap:wrap;gap:18px;position:relative}
-.chip{font-size:38px;padding:16px 30px;border:2px solid var(--line);border-radius:999px;color:var(--mut);background:#141417}
-ul{list-style:none;position:relative}
-li{font-size:68px;font-weight:700;letter-spacing:-.03em;padding:22px 0;border-top:2px solid var(--line);display:flex;justify-content:space-between;align-items:center}
-li:last-child{border-bottom:2px solid var(--line)}
-li span{font-size:28px;color:var(--mut);font-weight:500;letter-spacing:.05em}
-li.hl{color:var(--acc)}
-.curve{position:relative;margin:10px 0 50px}
-.big{font-size:150px;line-height:.95;font-weight:800;letter-spacing:-.045em;position:relative}
-.cta{position:relative;margin-top:70px;padding:44px 48px;border:2px solid var(--acc);border-radius:28px;background:rgba(255,106,43,.06)}
-.cta p{color:var(--fg);font-size:50px;font-weight:600}
-.cta small{display:block;font-size:28px;color:var(--mut);margin-top:16px;letter-spacing:.04em}
+body{background:#777}
+.slide{width:1080px;height:1350px;position:relative;overflow:hidden;margin-bottom:20px;font-family:Inter,sans-serif;color:var(--ink)}
+/* film grain */
+.slide::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:50;opacity:.38;mix-blend-mode:overlay;
+ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.6 -.3'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.vignette::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(0,0,0,.35) 100%)}
+.z{position:relative;z-index:5}
+.sans{font-family:Poppins,sans-serif;font-weight:800;letter-spacing:-.035em;line-height:.92}
+.serif{font-family:"Playfair Display",serif;font-style:italic;font-weight:500;letter-spacing:-.02em}
+.red{color:var(--red)}
+.foot{position:absolute;left:64px;right:64px;bottom:52px;z-index:10;display:flex;justify-content:space-between;align-items:center;font-family:"Playfair Display",serif;font-style:italic;font-size:26px}
+.foot .save{display:flex;align-items:center;gap:10px}
+.foot svg{display:block}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:5}
+
+/* backgrounds */
+.sky{background:linear-gradient(180deg,var(--sky1) 0%,#9dbbd9 45%,var(--sky2) 100%)}
+.cloud{position:absolute;border-radius:50%;background:#fff;filter:blur(38px);opacity:.75}
+.blackpaper{background:#1b1a19;color:var(--paper)}
+.blackpaper::before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.07),transparent 60%),radial-gradient(ellipse at 80% 90%,rgba(255,255,255,.05),transparent 50%);}
+.crease{position:absolute;z-index:2;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent)}
+.mustard{background:var(--mustard)}
+.paper{background:var(--paper)}
+.redbg{background:var(--red);color:var(--paper)}
+
+/* folder */
+.folder{position:relative;width:640px;height:440px}
+.folder .tab{position:absolute;top:0;left:0;width:250px;height:70px;background:#e9e7e2;border-radius:26px 26px 0 0}
+.folder .body{position:absolute;top:40px;left:0;right:0;bottom:0;background:linear-gradient(180deg,#f7f6f2,#e4e2dc);border-radius:30px;box-shadow:0 30px 60px rgba(30,50,80,.35), inset 0 2px 0 #fff;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.bluefolder{display:flex;flex-direction:column;align-items:center;gap:14px}
+.bluefolder i{display:block;width:170px;height:122px;position:relative}
+.bluefolder i::before{content:"";position:absolute;left:0;top:0;width:70px;height:26px;background:#1f7ddb;border-radius:8px 8px 0 0}
+.bluefolder i::after{content:"";position:absolute;left:0;right:0;top:14px;bottom:0;background:var(--folder);border-radius:4px 10px 10px 10px;box-shadow:0 10px 20px rgba(0,0,0,.35)}
+.bluefolder span{font-family:"Playfair Display",serif;font-style:italic;font-size:36px;color:var(--paper)}
+.x{position:absolute;inset:-10px -20px;z-index:3}
 </style></head><body>
 
-<!-- 1 -->
-<section class="slide">
-  <div class="top"><span>Motion &amp; AI</span><span>01 / 07</span></div>
-  <svg class="curve" width="420" height="200" viewBox="0 0 420 200"><path d="M10 190 C 210 190, 210 10, 410 10" fill="none" stroke="#ff6a2b" stroke-width="8" stroke-linecap="round"/><circle cx="10" cy="190" r="12" fill="#ff6a2b"/><circle cx="410" cy="10" r="12" fill="#ff6a2b"/></svg>
-  <h1>Over 5 jaar is <span class="strike">After&nbsp;Effects</span> misschien irrelevant.</h1>
-  <div class="gap"></div>
-  <h1 class="acc">Jouw talent niet.</h1>
-  <div class="bot"><span>Swipe →</span><div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-</section>
-
-<!-- 2 -->
-<section class="slide">
-  <div class="top"><span>Motion &amp; AI</span><span>02 / 07</span></div>
-  <p>Iedereen vraagt zich af of AI zijn job gaat overnemen.</p>
-  <div class="gap"></div>
-  <h2>Maar kijk eens wat AI <span class="acc">echt</span> vervangt:</h2>
-  <div class="gap"></div>
-  <div class="chips"><span class="chip">knoppen</span><span class="chip">menu's</span><span class="chip">plug-ins</span><span class="chip">workflows</span></div>
-  <div class="gap"></div><div class="gap"></div>
-  <h2>Dat is software,<br><span class="acc">geen talent.</span></h2>
-  <div class="bot"><span>Swipe →</span><div class="dots"><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div>
-</section>
-
-<!-- 3 -->
-<section class="slide">
-  <div class="top"><span>Motion &amp; AI</span><span>03 / 07</span></div>
-  <span class="tag">1981 — Disney</span>
-  <p>Twee Disney-animators beschreven de <b style="color:var(--fg)">12 principes van animatie</b>. Eén daarvan:</p>
-  <div class="gap-s"></div>
-  <h2>slow in, slow out.</h2>
-  <svg class="curve" width="888" height="260" viewBox="0 0 888 260" style="margin:40px 0">
-    <line x1="0" y1="250" x2="888" y2="250" stroke="#2a2a2e" stroke-width="2"/>
-    <line x1="0" y1="10" x2="888" y2="10" stroke="#2a2a2e" stroke-width="2"/>
-    <line x1="20" y1="240" x2="300" y2="240" stroke="#8d8a84" stroke-width="3" stroke-dasharray="6 8"/>
-    <line x1="868" y1="20" x2="588" y2="20" stroke="#8d8a84" stroke-width="3" stroke-dasharray="6 8"/>
-    <path d="M20 240 C 300 240, 588 20, 868 20" fill="none" stroke="#ff6a2b" stroke-width="8" stroke-linecap="round"/>
-    <circle cx="20" cy="240" r="12" fill="#ff6a2b"/><circle cx="868" cy="20" r="12" fill="#ff6a2b"/>
-    <rect x="290" y="230" width="20" height="20" fill="#f4f1ea"/><rect x="578" y="10" width="20" height="20" fill="#f4f1ea"/>
-  </svg>
-  <p>Vandaag heet dat een <span class="acc">easing curve</span>.</p>
-  <div class="gap-s"></div>
-  <p class="mut" style="font-size:36px">Potlood → cel → Flash → After Effects → AI</p>
-  <div class="gap-s"></div>
-  <p style="color:var(--fg);font-weight:600">Het principe overleefde ze allemaal.<br>Het gaat ook AI overleven.</p>
-  <div class="bot"><span>Swipe →</span><div class="dots"><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
-</section>
-
-<!-- 4 -->
-<section class="slide">
-  <div class="top"><span>Motion &amp; AI</span><span>04 / 07</span></div>
-  <p>Tools veranderen om de paar jaar, en AI versnelt dat nog.</p>
-  <div class="gap"></div>
-  <span class="tag">Wat blijft</span>
-  <ul>
-    <li>→ compositie<span>01</span></li>
-    <li>→ licht<span>02</span></li>
-    <li>→ timing<span>03</span></li>
-    <li>→ ritme<span>04</span></li>
-    <li class="hl">→ smaak<span>05</span></li>
-  </ul>
-  <div class="bot"><span>Swipe →</span><div class="dots"><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div></div>
-</section>
-
-<!-- 5 -->
-<section class="slide">
-  <div class="top"><span>Motion &amp; AI</span><span>05 / 07</span></div>
-  <h2><span class="mut">Software bepaalt</span> hoe <span class="mut">je iets maakt.</span></h2>
-  <div class="gap"></div>
-  <h2>Smaak bepaalt <span class="acc">wat</span> je maakt en <span class="acc">waarom</span>.</h2>
-  <div class="gap"></div><div class="gap"></div>
-  <p>AI kan het <i>hoe</i> steeds beter overnemen.<br>Maar iemand moet nog altijd zeggen:</p>
-  <div class="gap"></div>
-  <h2>“Dit is goed. <span class="mut">Dat niet.</span>”</h2>
-  <div class="bot"><span>Swipe →</span><div class="dots"><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i></div></div>
-</section>
-
-<!-- 6 -->
-<section class="slide">
-  <div class="top"><span>Motion &amp; AI</span><span>06 / 07</span></div>
-  <h2>Smaak leer je niet uit een tutorial.</h2>
-  <div class="gap-s"></div>
-  <h2 class="acc">Je bouwt het op door te maken.</h2>
-  <div class="gap"></div><div class="gap"></div>
-  <p>Elke visie.<br>Elke mislukte versie.<br>Elke <span style="color:var(--fg)">“nee, nog niet helemaal”</span>.</p>
-  <div class="gap"></div><div class="gap"></div>
-  <p style="color:var(--fg);font-weight:600">Daar ontstaan de inzichten<br>die AI niet kan kopiëren.</p>
-  <div class="bot"><span>Swipe →</span><div class="dots"><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i></div></div>
-</section>
-
-<!-- 7 -->
-<section class="slide">
-  <div class="top"><span>Motion &amp; AI</span><span>07 / 07</span></div>
-  <p>Wees dus niet bang dat je software verdwijnt.</p>
-  <div class="gap"></div>
-  <div class="big">Wees bang dat je <span class="acc">stopt met maken.</span></div>
-  <div class="cta">
-    <p>Welke tool denk jij dat gaat verdwijnen?</p>
-    <small>↓ Laat het weten in de comments</small>
+<!-- ============ 1 HOOK ============ -->
+<section class="slide sky vignette">
+  <div class="cloud" style="width:700px;height:260px;left:-200px;top:120px"></div>
+  <div class="cloud" style="width:520px;height:200px;right:-160px;top:40px"></div>
+  <div class="cloud" style="width:800px;height:300px;left:300px;top:860px;opacity:.6"></div>
+  <div class="cloud" style="width:600px;height:240px;left:-260px;top:1050px;opacity:.7"></div>
+  <div class="center" style="justify-content:flex-start;padding-top:150px">
+    <div class="serif red" style="font-size:78px;line-height:1">Over 5 jaar is</div>
+    <div class="folder" style="margin-top:40px">
+      <div class="tab"></div>
+      <div class="body">
+        <div class="sans" style="font-size:96px;color:var(--ink);position:relative">AFTER<br>EFFECTS
+          <svg class="x" viewBox="0 0 400 200" preserveAspectRatio="none"><path d="M8 185 C 120 140, 280 60, 392 15" stroke="#e4532c" stroke-width="10" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <div class="serif" style="font-size:44px;margin-top:22px;color:#333">misschien irrelevant.</div>
+      </div>
+    </div>
+    <div style="margin-top:110px;position:relative">
+      <div class="sans" style="font-size:150px;color:#fff;text-shadow:0 6px 30px rgba(20,40,70,.25)">JOUW</div>
+      <div style="display:flex;align-items:baseline;justify-content:center;gap:24px;margin-top:-6px">
+        <span class="serif red" style="font-size:150px;line-height:1">talent</span>
+        <span class="sans" style="font-size:150px;color:#fff;text-shadow:0 6px 30px rgba(20,40,70,.25)">NIET.</span>
+      </div>
+      <svg width="420" height="40" viewBox="0 0 420 40" style="position:absolute;left:150px;bottom:-26px"><path d="M6 26 C 90 8, 200 30, 300 14 S 400 18, 414 10" stroke="#e4532c" stroke-width="7" fill="none" stroke-linecap="round"/></svg>
+    </div>
   </div>
-  <div class="bot"><span>Bewaar &amp; deel</span><div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i></div></div>
+  <div class="foot" style="color:#fff"><span>@larsmanman</span><span class="save"><svg width="18" height="24" viewBox="0 0 18 24"><path d="M2 2h14v20l-7-5-7 5z" fill="none" stroke="#fff" stroke-width="2.2"/></svg>bewaar voor later</span><svg width="80" height="24" viewBox="0 0 80 24"><path d="M2 12h74M64 2l12 10-12 10" stroke="#fff" stroke-width="2.5" fill="none"/></svg></div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="slide blackpaper">
+  <div class="crease" style="left:0;right:0;top:640px;height:3px"></div>
+  <div class="crease" style="top:0;bottom:0;left:520px;width:3px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.06),transparent)"></div>
+  <div class="z" style="padding:130px 72px 0">
+    <div class="serif" style="font-size:44px;line-height:1.25;opacity:.85">Iedereen vraagt zich af of AI<br>zijn job gaat overnemen.</div>
+    <div style="margin-top:50px" class="sans"><span style="font-size:104px">MAAR KIJK WAT</span></div>
+    <div style="display:flex;align-items:baseline;gap:20px"><span class="sans" style="font-size:104px">AI</span><span class="serif red" style="font-size:130px;line-height:1">echt</span><span class="sans" style="font-size:104px">VERVANGT:</span></div>
+  </div>
+  <div class="z" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:70px 60px 0">
+    <div class="bluefolder"><i></i><span>knoppen</span></div>
+    <div class="bluefolder"><i></i><span>menu's</span></div>
+    <div class="bluefolder"><i></i><span>plug-ins</span></div>
+    <div class="bluefolder"><i></i><span>workflows</span></div>
+  </div>
+  <div class="z" style="padding:90px 72px 0">
+    <div class="sans" style="font-size:96px">DAT IS SOFTWARE,</div>
+    <div style="display:flex;align-items:baseline;gap:22px;margin-top:4px"><span class="sans" style="font-size:96px">GEEN</span><span class="serif red" style="font-size:128px;line-height:1">talent.</span></div>
+  </div>
+  <div class="foot" style="color:var(--paper)"><span>@larsmanman</span><span class="save"><svg width="18" height="24" viewBox="0 0 18 24"><path d="M2 2h14v20l-7-5-7 5z" fill="none" stroke="#ece6d8" stroke-width="2.2"/></svg>bewaar voor later</span><svg width="80" height="24" viewBox="0 0 80 24"><path d="M2 12h74M64 2l12 10-12 10" stroke="#ece6d8" stroke-width="2.5" fill="none"/></svg></div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="slide mustard">
+  <div class="z" style="padding:120px 72px 0;text-align:center">
+    <div class="serif" style="font-size:46px;line-height:1.25">In 1981 beschreven twee Disney-animators<br>de 12 principes van animatie. Eén daarvan:</div>
+    <div class="sans red" style="font-size:150px;margin-top:40px">SLOW IN,</div>
+    <div class="sans red" style="font-size:150px">SLOW OUT.</div>
+  </div>
+  <!-- bouncing-ball spacing chart: dense at ends, wide in middle -->
+  <svg class="z" width="1080" height="300" viewBox="0 0 1080 300" style="display:block;margin-top:40px">
+    <path d="M90 230 C 400 230, 680 70, 990 70" stroke="#161514" stroke-width="3" stroke-dasharray="4 10" fill="none"/>
+    <g fill="#161514">
+      <circle cx="90" cy="230" r="26"/>
+      <circle cx="120" cy="229" r="26" opacity=".25"/>
+      <circle cx="175" cy="225" r="26" opacity=".3"/>
+      <circle cx="265" cy="212" r="26" opacity=".35"/>
+      <circle cx="390" cy="185" r="26" opacity=".4"/>
+      <circle cx="540" cy="150" r="26" opacity=".45"/>
+      <circle cx="690" cy="115" r="26" opacity=".5"/>
+      <circle cx="815" cy="88" r="26" opacity=".55"/>
+      <circle cx="905" cy="75" r="26" opacity=".6"/>
+      <circle cx="960" cy="71" r="26" opacity=".65"/>
+      <circle cx="990" cy="70" r="26" fill="#e4532c"/>
+    </g>
+  </svg>
+  <div class="z" style="text-align:center;margin-top:30px">
+    <div style="font-size:44px"><span class="serif">Vandaag heet dat een</span> <span class="sans" style="font-size:56px">EASING CURVE.</span></div>
+    <div class="serif" style="font-size:36px;margin-top:36px;opacity:.8">potlood → cel → Flash → After Effects</div>
+    <div class="serif" style="font-size:46px;margin-top:30px">Het overleefde ze allemaal.<br><span class="red" style="font-weight:600">Het gaat ook AI overleven.</span></div>
+  </div>
+  <div class="foot" style="color:var(--ink)"><span>@larsmanman</span><span class="save"><svg width="18" height="24" viewBox="0 0 18 24"><path d="M2 2h14v20l-7-5-7 5z" fill="none" stroke="#161514" stroke-width="2.2"/></svg>bewaar voor later</span><svg width="80" height="24" viewBox="0 0 80 24"><path d="M2 12h74M64 2l12 10-12 10" stroke="#161514" stroke-width="2.5" fill="none"/></svg></div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="slide paper">
+  <div class="z" style="padding:120px 72px 0">
+    <div class="serif" style="font-size:44px;line-height:1.25">Tools veranderen om de paar jaar,<br>en AI versnelt dat nog.</div>
+    <div style="display:flex;align-items:baseline;gap:22px;margin-top:60px"><span class="serif red" style="font-size:150px;line-height:1">Wat</span><span class="sans" style="font-size:150px">BLIJFT:</span></div>
+  </div>
+  <div class="z" style="padding:50px 72px 0">
+    <div class="sans" style="font-size:126px;line-height:1.02">COMPOSITIE</div>
+    <div class="sans" style="font-size:126px;line-height:1.02">LICHT</div>
+    <div class="sans" style="font-size:126px;line-height:1.02">TIMING</div>
+    <div class="sans" style="font-size:126px;line-height:1.02">RITME</div>
+    <div style="position:relative;display:inline-block;margin-top:10px">
+      <span class="serif red" style="font-size:170px;line-height:1;padding:0 50px 0 40px">smaak.</span>
+      <svg viewBox="0 0 560 220" width="640" height="250" style="position:absolute;left:-30px;top:-34px"><path d="M60 120 C 40 40, 300 10, 480 40 C 560 60, 560 170, 420 195 C 280 215, 60 200, 40 140 C 30 100, 120 50, 220 40" stroke="#161514" stroke-width="5" fill="none" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+  <div class="foot" style="color:var(--ink)"><span>@larsmanman</span><span class="save"><svg width="18" height="24" viewBox="0 0 18 24"><path d="M2 2h14v20l-7-5-7 5z" fill="none" stroke="#161514" stroke-width="2.2"/></svg>bewaar voor later</span><svg width="80" height="24" viewBox="0 0 80 24"><path d="M2 12h74M64 2l12 10-12 10" stroke="#161514" stroke-width="2.5" fill="none"/></svg></div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="slide blackpaper">
+  <div class="crease" style="left:0;right:0;top:1180px;height:3px"></div>
+  <div class="z" style="padding:130px 72px 0">
+    <div class="sans" style="font-size:92px">SOFTWARE BEPAALT</div>
+    <div style="display:flex;align-items:baseline;gap:20px"><span class="serif" style="font-size:120px;line-height:1.05">hoe</span><span class="sans" style="font-size:92px;opacity:.55">JE IETS MAAKT.</span></div>
+    <div class="sans" style="font-size:92px;margin-top:50px">SMAAK BEPAALT</div>
+    <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap"><span class="serif red" style="font-size:120px;line-height:1.05">wat</span><span class="sans" style="font-size:92px;opacity:.55">JE MAAKT</span></div>
+    <div style="display:flex;align-items:baseline;gap:20px"><span class="sans" style="font-size:92px;opacity:.55">EN</span><span class="serif red" style="font-size:120px;line-height:1.05">waarom.</span></div>
+  </div>
+  <div class="z" style="padding:70px 72px 0">
+    <div class="serif" style="font-size:42px;line-height:1.3;opacity:.85">AI kan het <i>hoe</i> steeds beter overnemen.<br>Maar iemand moet nog altijd zeggen:</div>
+    <div style="display:flex;gap:60px;margin-top:40px;align-items:center">
+      <div style="display:flex;align-items:center;gap:18px"><svg width="70" height="60" viewBox="0 0 70 60"><path d="M6 32 L26 52 L64 6" stroke="#e4532c" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sans" style="font-size:72px">DIT IS GOED.</span></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px;margin-top:16px"><svg width="70" height="60" viewBox="0 0 70 60"><path d="M10 8 L60 54 M60 8 L10 54" stroke="#ece6d8" stroke-width="7" fill="none" stroke-linecap="round" opacity=".6"/></svg><span class="serif" style="font-size:84px;opacity:.6">Dat niet.</span></div>
+  </div>
+  <div class="foot" style="color:var(--paper)"><span>@larsmanman</span><span class="save"><svg width="18" height="24" viewBox="0 0 18 24"><path d="M2 2h14v20l-7-5-7 5z" fill="none" stroke="#ece6d8" stroke-width="2.2"/></svg>bewaar voor later</span><svg width="80" height="24" viewBox="0 0 80 24"><path d="M2 12h74M64 2l12 10-12 10" stroke="#ece6d8" stroke-width="2.5" fill="none"/></svg></div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="slide mustard">
+  <div class="z" style="padding:110px 72px 0;text-align:center">
+    <div class="serif red" style="font-size:72px;line-height:1">smaak leer je niet uit een</div>
+    <div class="sans red" style="font-size:170px;margin-top:6px">TUTORIAL.</div>
+  </div>
+  <!-- retro computer -->
+  <svg class="z" width="1080" height="420" viewBox="0 0 1080 420" style="display:block;margin-top:20px">
+    <ellipse cx="540" cy="395" rx="300" ry="18" fill="#000" opacity=".15"/>
+    <rect x="390" y="20" width="300" height="250" rx="18" fill="#e8e3d6" stroke="#161514" stroke-width="5"/>
+    <rect x="425" y="52" width="230" height="160" rx="14" fill="#2b2e2c" stroke="#161514" stroke-width="5"/>
+    <path d="M445 175 C 500 175, 520 90, 635 85" stroke="#e4532c" stroke-width="5" fill="none"/>
+    <circle cx="445" cy="175" r="7" fill="#e4532c"/><circle cx="635" cy="85" r="7" fill="#e4532c"/>
+    <rect x="440" y="232" width="70" height="10" rx="4" fill="#161514" opacity=".5"/>
+    <circle cx="650" cy="238" r="8" fill="#161514" opacity=".5"/>
+    <rect x="450" y="270" width="180" height="40" fill="#d9d3c3" stroke="#161514" stroke-width="5"/>
+    <path d="M340 320 L740 320 L790 385 L290 385 Z" fill="#e8e3d6" stroke="#161514" stroke-width="5" stroke-linejoin="round"/>
+    <g stroke="#161514" stroke-width="3" opacity=".55">
+      <path d="M330 340 H750 M318 358 H762 M305 374 H775"/>
+    </g>
+  </svg>
+  <div class="z" style="text-align:center;margin-top:20px">
+    <div class="sans" style="font-size:78px">JE BOUWT HET OP</div>
+    <div class="serif red" style="font-size:96px;line-height:1.05">door te maken.</div>
+    <div class="serif" style="font-size:40px;line-height:1.35;margin-top:34px">Elke visie, elke mislukte versie,<br>elke “nee, nog niet helemaal”.<br><b style="font-weight:600">Daar ontstaan de inzichten die AI niet kan kopiëren.</b></div>
+  </div>
+  <div class="foot" style="color:var(--ink)"><span>@larsmanman</span><span class="save"><svg width="18" height="24" viewBox="0 0 18 24"><path d="M2 2h14v20l-7-5-7 5z" fill="none" stroke="#161514" stroke-width="2.2"/></svg>bewaar voor later</span><svg width="80" height="24" viewBox="0 0 80 24"><path d="M2 12h74M64 2l12 10-12 10" stroke="#161514" stroke-width="2.5" fill="none"/></svg></div>
+</section>
+
+<!-- ============ 7 CTA ============ -->
+<section class="slide sky vignette">
+  <div class="cloud" style="width:640px;height:240px;left:-180px;top:90px"></div>
+  <div class="cloud" style="width:560px;height:220px;right:-200px;top:300px"></div>
+  <div class="cloud" style="width:800px;height:280px;left:200px;top:1000px;opacity:.6"></div>
+  <div class="center" style="justify-content:flex-start;padding-top:130px">
+    <div class="serif" style="font-size:52px;color:#fff;line-height:1.2">Wees dus niet bang dat<br>je software verdwijnt.</div>
+    <div class="serif red" style="font-size:120px;line-height:1;margin-top:70px">Wees bang</div>
+    <div class="sans" style="font-size:118px;color:#fff;text-shadow:0 6px 30px rgba(20,40,70,.25);margin-top:10px">DAT JE STOPT</div>
+    <div class="sans" style="font-size:118px;color:#fff;text-shadow:0 6px 30px rgba(20,40,70,.25)">MET MAKEN.</div>
+    <div class="folder" style="margin-top:80px;width:760px;height:300px">
+      <div class="tab"></div>
+      <div class="body">
+        <div class="serif red" style="font-size:40px">vraagje voor jou</div>
+        <div class="sans" style="font-size:58px;line-height:1.05;margin-top:12px;color:var(--ink)">WELKE TOOL DENK JIJ<br>DAT GAAT VERDWIJNEN?</div>
+        <div class="serif" style="font-size:30px;margin-top:16px;color:#555">laat het weten in de comments ↓</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot" style="color:#fff"><span>@larsmanman</span><span class="save"><svg width="18" height="24" viewBox="0 0 18 24"><path d="M2 2h14v20l-7-5-7 5z" fill="none" stroke="#fff" stroke-width="2.2"/></svg>bewaar voor later</span><span>deel met een maker</span></div>
 </section>
 </body></html>
